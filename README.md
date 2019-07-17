@@ -8,7 +8,29 @@ Fork and clone this repo. On your fork, answer and commit the follow questions. 
 a) Define an enumeration called `iOSDeviceType` with member values `iPhone`, `iPad`, `iWatch`. Create a variable called `myDevice` and assign it one member value.
 
 b) Adjust your code above so that `iPhone` and `iPad` have associated values of type String which represents the model number, eg: `iPhone("6 Plus")`. Use a switch case and let syntax to print out the model number of each device.
+```
+enum iOSDeviceType: String {
+case iPhone = "7 Plus"
+case iPad = "Generation 3"
+case iWatch
+}
+let myDevice = iOSDeviceType.iPhone.rawValue
 
+if let modelNumber = iOSDeviceType(rawValue: myDevice) {
+switch modelNumber {
+case.iPhone:
+print(modelNumber.rawValue)
+case.iPad:
+print(modelNumber.rawValue)
+case.iWatch:
+print(modelNumber.rawValue)
+}
+}else {
+print("something here")
+
+}
+
+```
 
 ## Question 2
 
@@ -18,6 +40,62 @@ b) Write a method inside `Shape` that returns how many sides the shape has. Crea
 
 c) Re-write `Shape` so that each case has an associated value of type Int that will represent the length of the sides (assume the shapes are regular polygons so all the sides are the same length) and write a method inside that returns the perimeter of the shape.
 
+b)
+```
+enum Shape {
+case triangle
+case rectangle
+case square
+case pentagon
+case hexagon
+
+func numberOfSides() -> Int {
+switch myFavoritePolygon {
+case.pentagon:
+return 5
+case.triangle:
+return 3
+case.rectangle:
+return 4
+case.square:
+return 4
+case.hexagon:
+return 6
+}
+}
+}
+var myFavoritePolygon = Shape.pentagon
+
+print(myFavoritePolygon.numberOfSides())
+```
+c)
+```
+enum Shape {
+case triangle(side: Double)
+case rectangle(side: Double)
+case square(side: Double)
+case pentagon(side: Double)
+case hexagon(side: Double)
+
+func perimeter() -> Double {
+switch self {
+case .hexagon(side: let side):
+return side * 6
+case .pentagon(side: let side):
+return side * 5
+case .rectangle(side: let side):
+return side * 4
+case . triangle(side: let side):
+return side * 3
+case .square(side: let side):
+return side * 4
+}
+}
+}
+var myFavoritePolygon = Shape.pentagon(side: 6.0)
+print(myFavoritePolygon.perimeter())
+
+```
 
 ## Question 3
 
@@ -46,8 +124,33 @@ var location = (x: 0, y: 0)
 var steps: [Direction] = [.up, .up, .left, .down, .left]
 
 // your code here
-```
 
+enum Direction {
+case up
+case down
+case left
+case right
+}
+
+var location = (x: 0, y: 0)
+var steps: [Direction] = [.up, .up, .left, .down, .left]
+
+for direction in steps {
+print ("The current location is at x: \(location.x) and y: \(location.y)")
+print("I am about to go \(direction)")
+switch direction {
+case .up:
+location.y += 1
+case .down:
+location.y -= 1
+case .left:
+location.x -= 1
+case .right:
+location.x += 1
+}
+}
+print ("The final location is \(location)")
+```
 
 ## Question 5
 
@@ -58,7 +161,43 @@ b) Define an enumeration named `MatchResult` with three members: `.win`, `.draw`
 c) Write a function called `match` that takes two `HandShapes` and returns a `MatchResult`. It should return the outcome for the first player (the one with the first hand shape).
 
 Hint: Rock beats scissors, paper beats rock, scissor beats paper
+```
 
+enum HandShape {
+case rock
+case paper
+case scissors
+
+}
+enum MatchResult {
+case win
+case draw
+case lose
+}
+
+func match(firstShape: HandShape, secondShape: HandShape) -> MatchResult {
+switch firstShape {
+case .rock:
+switch secondShape {
+case .rock: return .draw
+case .paper: return .lose
+case .scissors: return .win
+}
+case .paper:
+switch secondShape {
+case .rock: return .win
+case .paper: return .draw
+case .scissors: return .lose
+}
+case .scissors:
+switch secondShape {
+case .rock: return .lose
+case .paper: return .win
+case .scissors: return .draw
+}
+}
+}
+```
 
 ## Question 6
 
